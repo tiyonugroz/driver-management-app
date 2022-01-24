@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { store, history } from './redux/store';
 import { GlobalStyle } from './globalStyle';
 import App from './App';
-import 'antd/dist/antd.css';
 import reportWebVitals from './reportWebVitals';
 
 render(

@@ -1,21 +1,31 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { ConnectedRouter } from "connected-react-router";
-import { ControlOutlined } from "@ant-design/icons";
+import { default as Layout } from "./containers/Layout";
+import {
+  HomeOutlined,
+  UserOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
+import asyncComponent from "./utils/AsyncFunc";
+import './App.less';
 
-const Beranda = lazy(() => import("./pages/Beranda"));
-const DriverManagement = lazy(() => import("./pages/DriverManagement"));
-const Pickup = lazy(() => import("./pages/Pickup"));
-const Page404 = lazy(() => import("./pages/404"));
 
-const publicRoutes = [
+const Beranda = asyncComponent(() => import("./pages/Beranda"));
+const DriverManagement = asyncComponent(() =>
+  import("./pages/DriverManagement")
+);
+const Pickup = asyncComponent(() => import("./pages/Pickup"));
+const Page404 = asyncComponent(() => import("./pages/404"));
+
+export const publicRoutes = [
   {
     key: "beranda",
     exact: true,
     path: "/",
     component: Beranda,
     title: "Beranda",
-    icon: <ControlOutlined />,
+    icon: HomeOutlined,
   },
   {
     key: "driver_management",
@@ -23,7 +33,7 @@ const publicRoutes = [
     exact: false,
     component: DriverManagement,
     title: "Driver Management",
-    icon: <ControlOutlined />,
+    icon: UserOutlined,
   },
   {
     key: "pickup",
@@ -31,15 +41,15 @@ const publicRoutes = [
     exact: false,
     component: Pickup,
     title: "Pickup",
-    icon: <ControlOutlined />,
+    icon: CalendarOutlined,
   },
 ];
 
 function App({ history }) {
   return (
-    <Suspense fallback={<div>Loading....</div>}>
-      <ConnectedRouter history={history}>
-        <Switch>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Layout>
           {/* public */}
           {publicRoutes.map((route) => (
             <Route
@@ -49,11 +59,10 @@ function App({ history }) {
               component={route.component}
             />
           ))}
-
-          <Route component={Page404} />
-        </Switch>
-      </ConnectedRouter>
-    </Suspense>
+        </Layout>
+        <Route component={Page404} />
+      </Switch>
+    </ConnectedRouter>
   );
 }
 
