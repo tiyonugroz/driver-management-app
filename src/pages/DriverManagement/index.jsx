@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
 import {
   Layout,
   Row,
@@ -148,7 +149,7 @@ function DriverManagement() {
                     <Label>Email</Label>
                     <Paragraph strong>{item.email}</Paragraph>
                     <Label>Tanggal Lahir</Label>
-                    <Paragraph strong>{item.dob.date}</Paragraph>
+                    <Paragraph strong>{moment(item.dob.date).format("DD-MM-YYYY")}</Paragraph>
                   </Card>
                 </List.Item>
               )}
