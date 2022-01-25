@@ -30,7 +30,7 @@ function DriverManagement() {
   useEffect(() => {
     const fetchDriverList = (params) => dispatch(DriverListFetched(params));
     const data = {
-      endpoint: `?result=30`,
+      endpoint: `?results=30`,
       method: "GET",
     };
 
