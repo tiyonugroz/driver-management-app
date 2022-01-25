@@ -41,14 +41,10 @@ const PaginationWrapper = styled.div`
   margin: 20px 0;
   text-align: center;
 
-  & .ant-typography {
-    cursor: pointer;
-    &:first-child {
-    margin-right: 20px;
+  & button {
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.85);;
   }
-  }
-
-  
 `;
 
 const Pagination = WithDirection(PaginationWrapper);

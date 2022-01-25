@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Layout,
@@ -26,6 +26,10 @@ const { Content } = Layout;
 const { Title, Paragraph, Text } = Typography;
 
 function DriverManagement() {
+  const [dataList, setDataList] = useState([]);
+  const [list, setList] = useState([]);
+  const [page, setPage] = useState(0);
+
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchDriverList = (params) => dispatch(DriverListFetched(params));
@@ -39,6 +43,36 @@ function DriverManagement() {
 
   const app = useSelector((state) => state.App);
   const data = useSelector((state) => state.DriverManagement.list);
+
+  useEffect(() => {
+    if (data !== null && data.data) {
+      setDataList(data.data);
+      setList(sliceIntoChunks(data.data, 5));
+    }
+  }, [data]);
+
+  const sliceIntoChunks = (arr, chunkSize) => {
+    const res = [];
+    for (let i = 0; i < arr.length; i += chunkSize) {
+      const chunk = arr.slice(i, i + chunkSize);
+      res.push(chunk);
+    }
+    return res;
+  };
+
+  const handlePage = (type) => {
+    if (type === "next") {
+      setPage(page + 1);
+    } else {
+      setPage(page - 1);
+    }
+  };
+
+  const handleInput = (val) => {
+    const arr = dataList.filter((item) => item.name.first.toLowerCase().includes(val) );
+
+    setList(sliceIntoChunks(arr, 5));
+  };
 
   return (
     <Content
@@ -70,6 +104,7 @@ function DriverManagement() {
                     size="large"
                     placeholder="Cari Driver"
                     prefix={<SearchOutlined />}
+                    onChange={(e) => handleInput(e.target.value)}
                   />
                 </Col>
                 <Col sm={24} md={12}>
@@ -85,27 +120,29 @@ function DriverManagement() {
 
       <ListWrapper>
         <Scrollbars>
-          {data !== null && (
+          {list.length > 0 && (
             <List
               grid={
                 app.view === "MobileView"
                   ? { gutter: 16, column: 1 }
                   : { gutter: 16, column: 5 }
               }
-              dataSource={data.data}
+              dataSource={list[page]}
               renderItem={(item) => (
                 <List.Item>
                   <Card
                     title={
                       <Text type="secondary">
-                        Driver ID <span>{item.id.name}</span>
+                        Driver ID <span>{item.login.username}</span>
                       </Text>
                     }
                     extra={<EllipsisOutlined />}
                   >
                     <Avatar size={64} src={item.picture.medium} />
                     <Label>Nama Driver</Label>
-                    <Paragraph strong>{`${item.name.first} ${item.name.last}`}</Paragraph>
+                    <Paragraph
+                      strong
+                    >{`${item.name.first} ${item.name.last}`}</Paragraph>
                     <Label>Telepon</Label>
                     <Paragraph strong>{item.cell}</Paragraph>
                     <Label>Email</Label>
@@ -121,12 +158,12 @@ function DriverManagement() {
         </Scrollbars>
 
         <Pagination>
-          <Text strong>
+          <Button type="link" onClick={() => handlePage("prev")} disabled={page === 0 ? true : false}>
             <LeftOutlined /> Previous Page
-          </Text>
-          <Text strong>
+          </Button>
+          <Button type="link" onClick={() => handlePage("next")} disabled={list.length === page + 1 ? true : false}>
             Next Page <RightOutlined />
-          </Text>
+          </Button>
         </Pagination>
       </ListWrapper>
     </Content>

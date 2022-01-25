@@ -17,7 +17,7 @@ function Pickup() {
         <Card>
           <Row>
             <Col span={12}>
-              <Title level={4}>Pickup</Title>
+              <Title level={4}>PICKUP</Title>
               <Text>Tampilan pickup.</Text>
             </Col>
           </Row>

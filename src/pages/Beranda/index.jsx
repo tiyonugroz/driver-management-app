@@ -18,7 +18,7 @@ function Beranda() {
         <Card>
           <Row>
             <Col span={12}>
-              <Title level={4}>Beranda</Title>
+              <Title level={4}>BERANDA</Title>
               <Text>Tampilan beranda.</Text>
             </Col>
           </Row>
