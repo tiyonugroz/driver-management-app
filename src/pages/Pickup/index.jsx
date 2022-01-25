@@ -1,19 +1,28 @@
 import React from "react";
-import { Layout } from "antd";
+import { Layout, Row, Col, Card, Typography } from "antd";
+import { FormWrapper } from "./style";
 
 const { Content } = Layout;
+const { Title, Text } = Typography;
 
 function Pickup() {
   return (
     <Content
-      className="site-layout-background"
       style={{
         padding: 24,
         margin: 0,
-        minHeight: 280,
       }}
     >
-      Pickup
+      <FormWrapper>
+        <Card>
+          <Row>
+            <Col span={12}>
+              <Title level={4}>Pickup</Title>
+              <Text>Tampilan pickup.</Text>
+            </Col>
+          </Row>
+        </Card>
+      </FormWrapper>
     </Content>
   );
 }

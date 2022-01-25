@@ -1,3 +1,5 @@
-// import Auth from "./auth/reducer";
+import App from "./app/reducer";
+import DriverManagement from "./driverManagement/reducer";
 
-export default {};
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { App, DriverManagement };

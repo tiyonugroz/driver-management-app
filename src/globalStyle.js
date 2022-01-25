@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { borderRadius, transition } from './settings/style-util';
-import { variables } from './settings/styleVariables';
+import { borderRadius } from './settings/style-util';
 
 export const GlobalStyle = createGlobalStyle`
   /*------------------------------------*\

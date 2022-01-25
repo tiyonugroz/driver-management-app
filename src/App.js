@@ -28,7 +28,7 @@ export const publicRoutes = [
     icon: HomeOutlined,
   },
   {
-    key: "driver_management",
+    key: "driver-management",
     path: "/driver-management",
     exact: false,
     component: DriverManagement,
