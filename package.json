@@ -18,7 +18,7 @@
     "react-placeholder": "^4.1.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "5.0.0",
+    "react-scripts": "4.0.0",
     "react-smooth-scrollbar": "^8.0.6",
     "react-throttle": "^0.3.0",
     "react-window-size-listener": "^1.5.4",
